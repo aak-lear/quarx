@@ -1,0 +1,15 @@
+name: Auto Assign New issues to Project
+
+on:
+  issues:
+    types:
+      - opened
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh issue edit $ISSUE --add-project $PROJECT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.html_url }}
+          PROJECT: ${{ secrets.PROJECT }}
