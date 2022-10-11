@@ -1,1 +1,0 @@
-export { AppleIcon } from './AppleIcon';
