@@ -1,9 +1,9 @@
 name: Figma Icons
 
 on:
-  workflow_dispatch:
   schedule:
     - cron: '25 9 * * *'
+  workflow_dispatch:
 
 permissions:
   pull-requests: write
