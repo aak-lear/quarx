@@ -19,6 +19,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
           ITEM_ID: ${{ github.event.issue.node_id || github.event.pull_request.node_id }}
-          ITEM_ID3: ${{ join(toJSON([github.event.issue.node_id, github.event.pull_request.node_id])) }}
-          ITEM_ID4: ${{ join(fromJSON([github.event.issue.node_id, github.event.pull_request.node_id])) }}
           PROJECT_ID: ${{ secrets.QUARX_PROJECT_ID }}
