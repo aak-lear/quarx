@@ -4,20 +4,22 @@ on:
   issues:
     types:
       - opened
+  pull_request:
+    types:
+      - opened
 jobs:
   assign-to-project:
     runs-on: ubuntu-latest
     steps:
       - run: |-
-           gh api graphql -F contentId=$ISSUE_ID -F projectId=$PROJECT_ID -f query='
-             mutation($projectId: ID!, $contentId: ID!) {
-               addProjectV2ItemById(input: {projectId: $projectId contentId: $contentId}) {
-                 item {
-                   id
-                 }
-             }
-           }'
+            echo "$ITEM_ID"
+            echo "$ITEM_ID2"
+            echo "$ITEM_ID3"
+            echo "$ITEM_ID4"
         env:
           GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
-          ISSUE_ID: ${{ github.event.issue.node_id }}
+          ITEM_ID: ${{ github.event.issue.node_id || github.event.pull_request.node_id }}
+          ITEM_ID2: ${{ join([github.event.issue.node_id, github.event.pull_request.node_id]) }}
+          ITEM_ID3: ${{ join(toJSON([github.event.issue.node_id, github.event.pull_request.node_id])) }}
+          ITEM_ID4: ${{ join(fromJSON([github.event.issue.node_id, github.event.pull_request.node_id])) }}
           PROJECT_ID: ${{ secrets.QUARX_PROJECT_ID }}
