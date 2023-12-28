@@ -90,7 +90,9 @@ export const DateField = forwardRef(<D extends SelectedDates>(
         getInputRef: ref,
     });
 
-    const format = (joinedInput: string) => nativeFormat(validateDateOnInput({ joinedInput, isSingleDate, withTime, withSeconds }));
+    const format = nativeFormat
+        ? (joinedInput: string) => nativeFormat(validateDateOnInput({ joinedInput, isSingleDate, withTime, withSeconds }))
+        : undefined;
 
     return (<NumberFormatBase {...rest} format={useExperimentalDateFieldValidation ? format : nativeFormat} />);
 });
